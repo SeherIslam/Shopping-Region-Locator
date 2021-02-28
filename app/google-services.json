@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "470335723714",
+    "project_id": "shopping-region-locator",
+    "storage_bucket": "shopping-region-locator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470335723714:android:fb9f786443f3492c3d035b",
+        "android_client_info": {
+          "package_name": "com.seher.shoppingregionlocator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "470335723714-0li6b3g3ao90vvfanus9rs0j4lq67g41.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS5JMA46n9vDeLf8mZv67lTUheSKTApWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "470335723714-0li6b3g3ao90vvfanus9rs0j4lq67g41.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
