@@ -9,14 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoppingRegionLocator">
+        <activity android:name=".SignUp"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
+            android:theme="@style/Theme.ShoppingRegionLocator.NoActionBar" />
+        <activity
+            android:name=".Login"
             android:theme="@style/Theme.ShoppingRegionLocator.NoActionBar"></activity>
-        <activity android:name=".Login"
-            android:theme="@style/Theme.ShoppingRegionLocator.NoActionBar">
-        </activity>
-        <activity android:name=".SplashScreen"
+        <activity
+            android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
