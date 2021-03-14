@@ -167,8 +167,9 @@ public class ForgetPassword extends AppCompatActivity {
                     }
                     if(count==0){
                         login_progressBar.setVisibility(View.INVISIBLE);
-                        email.setError("User with this email does not exist.");
+                        email.setError("User with this email does not exist. Register yourself.");
                         email.requestFocus();
+                        
                     }
                 }
 
@@ -210,9 +211,8 @@ public class ForgetPassword extends AppCompatActivity {
             String recipients=mail;
             Message message=new MimeMessage(session);
             message.setFrom(new InternetAddress(emailID));
-            //message.setRecipients(Message.RecipientType.TO,InternetAddress.parse("kaleemnisar478@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(recipients));
-            message.setSubject("Election");
+            message.setSubject("Reset Password");
             String msg="Hi "+name+",<br> You are requested for password and your password is "+"'"+pass+"'";
             message.setText(String.valueOf(Html.fromHtml(msg)));
 

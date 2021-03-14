@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +35,7 @@ public class Login extends AppCompatActivity {
     TextInputLayout username,password;
 
     ProgressBar login_progressBar;
+    int count;
 
     private User userData;
     @Override
@@ -52,7 +54,7 @@ public class Login extends AppCompatActivity {
 
         login_progressBar.setVisibility(View.INVISIBLE);
 
-        String text="New User? <font color=#0000ff>Sign Up</font>";
+        String text="New User? <font color=#48C9B0>Sign Up</font>";
         signup.setText(Html.fromHtml(text));
 
         username.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -125,61 +127,91 @@ public class Login extends AppCompatActivity {
 
 
     }
+    private boolean validateUsername(){
+        String val=username.getEditText().getText().toString();
 
+        if(val.isEmpty()){
+            username.setError("Field cannot be empty");
+            username.requestFocus();
+            return false;
+        }
+        username.setErrorEnabled(false);
+        return true;
+    }
+
+    private boolean validatePassword(){
+        String val=password.getEditText().getText().toString();
+
+        if(val.isEmpty()){
+            password.setError("Field cannot be empty");
+            password.requestFocus();
+            return false;
+        }
+
+        password.setErrorEnabled(false);
+        return true;
+
+    }
 
     public void loginUser(View view) {
+        if(!validatePassword() | !validateUsername()){
+            Toast.makeText(getApplicationContext(),"Fill both Fields",Toast.LENGTH_LONG).show();
+            return;
+        }
+        login_progressBar.setVisibility(View.VISIBLE);
         final String userEnteredUsername=username.getEditText().getText().toString();
         final String userEnteredPassword=password.getEditText().getText().toString();
+//
+//        Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        startActivity(intent);
+        System.out.println("asdddddddddddddddd");
 
-        Intent intent=new Intent(getApplicationContext(), MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Users");
 
-//        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Users");
-//
-//        Query checkUser=reference.orderByChild("username").equalTo(userEnteredUsername);
-//
-//        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                if(dataSnapshot.exists())
-//                {
-//                    login_progressBar.setVisibility(View.INVISIBLE);
-//
-//                    username.setErrorEnabled(false);
-//
-//                    String passFromDb=dataSnapshot.child(userEnteredUsername).child("password").getValue(String.class);
-//                    if(passFromDb.equals(userEnteredPassword)){
-//
-//                        password.setErrorEnabled(false);
-//
-//                        Intent intent=new Intent(getApplicationContext(), MainActivity.class);
-//                        intent.putExtra("username",userEnteredUsername);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                        startActivity(intent);
-//                    }
-//                    else {
-//                        password.setError("Wrong Password...");
-//                        password.requestFocus();
-//                    }
-//                }
-//                else {
-//
-//                    login_progressBar.setVisibility(View.INVISIBLE);
-//
-//
-//                    username.setError("Username does not exist");
-//                    username.requestFocus();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+        System.out.println(reference);
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    User u = postSnapshot.getValue(User.class);
+                    if(u.getEmail().equals(userEnteredUsername))
+                    {
+                        count++;
+                        login_progressBar.setVisibility(View.INVISIBLE);
+                        username.setErrorEnabled(false);
+                        if(u.getPassword().equals(userEnteredPassword)){
+
+                            password.setErrorEnabled(false);
+
+                            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+//                            intent.putExtra("userType","Voter");
+//                            intent.putExtra("user",userEnteredUsername);
+
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+                        else {
+                            password.setError("Wrong Password...");
+                            password.requestFocus();
+                        }
+                        break;
+                    }
+                }
+                if(count==0){
+                    login_progressBar.setVisibility(View.INVISIBLE);
+                    username.setError("Username does not exist");
+                    username.requestFocus();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void forgetPassword(View view) {

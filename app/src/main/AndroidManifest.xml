@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoppingRegionLocator">
-        <activity android:name=".SignUp"></activity>
+        <activity
+            android:name=".SignUp"
+            android:theme="@style/Theme.ShoppingRegionLocator.NoActionBar" />
+        <activity
+            android:name=".ForgetPassword"
+            android:theme="@style/Theme.ShoppingRegionLocator.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"

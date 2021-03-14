@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -196,11 +197,11 @@ public class SignUp extends AppCompatActivity {
                     pass.setError("Field cannot be empty");
                 }
                 else if (s.length()<7){
-                    phone.setError("Password lenght must be greater than 7");
+                    pass.setError("Password lenght must be greater than 7");
                 }
                 else
                 {
-                    phone.setErrorEnabled(false);
+                    pass.setErrorEnabled(false);
                 }
 
             }
@@ -361,7 +362,7 @@ public class SignUp extends AppCompatActivity {
         }
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-        reference = rootNode.getReference("Users").child("Admins");
+        reference = rootNode.getReference("Users");
 
 
         String name=fullname.getEditText().getText().toString();
@@ -409,10 +410,18 @@ public class SignUp extends AppCompatActivity {
     {
 
         reference.child(user.getId()).setValue(user);
-
-        Intent intent=new Intent(getApplicationContext(), MainActivity.class);
-        intent.putExtra("userID",user.getId());
-        startActivity(intent);
+        Toast.makeText(getApplicationContext(),"You are successfully registered, Login to continue!",Toast.LENGTH_LONG).show();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent=new Intent(getApplicationContext(),Login.class);
+                //intent.putExtra("userID",user.getId());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        },1500);
 
 
     }
