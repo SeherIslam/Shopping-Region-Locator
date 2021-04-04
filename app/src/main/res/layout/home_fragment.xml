@@ -5,9 +5,42 @@
     android:layout_height="match_parent"
     tools:context=".ui.Home.Home">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:fillViewport="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Choose the Places"
+            android:textSize="18sp"/>
+        <GridView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemList"
+            android:numColumns="2"
+            android:scrollbars="none"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/textView"
+            />
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rect_button"
+            android:id="@+id/nextBtn"
+            />
+    </RelativeLayout>
+    </ScrollView>
 
 </FrameLayout>
