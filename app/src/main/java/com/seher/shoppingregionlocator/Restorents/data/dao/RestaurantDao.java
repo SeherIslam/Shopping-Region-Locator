@@ -8,7 +8,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.seher.shoppingregionlocator.Restorents.data.entity.Restaurant;
+import com.seher.shoppingregionlocator.Restorents.data.entity.Places;
 
 import java.util.List;
 
@@ -16,21 +16,21 @@ import java.util.List;
 @Dao
 public interface RestaurantDao
 {
-    @Query("SELECT * FROM RESTAURANT")
-    List<Restaurant> getAll();
+    @Query("SELECT * FROM Places")
+    List<Places> getAll();
 
-    @Query("SELECT COUNT(*) FROM RESTAURANT WHERE place_id =:id")
+    @Query("SELECT COUNT(*) FROM Places WHERE place_id =:id")
     int count(String id);
 
-    @Query("SELECT COUNT(*) FROM RESTAURANT")
+    @Query("SELECT COUNT(*) FROM Places")
     int count();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insert(Restaurant restaurant);
+    long insert(Places restaurant);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long[] insertAll(List<Restaurant> restaurants);
+    long[] insertAll(List<Places> restaurants);
 
     @Delete
-    void delete(Restaurant restaurant);
+    void delete(Places restaurant);
 }

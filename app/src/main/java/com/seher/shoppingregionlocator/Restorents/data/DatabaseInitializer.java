@@ -2,7 +2,7 @@ package com.seher.shoppingregionlocator.Restorents.data;
 
 
 import com.seher.shoppingregionlocator.Restorents.data.db.AppDatabase;
-import com.seher.shoppingregionlocator.Restorents.data.entity.Restaurant;
+import com.seher.shoppingregionlocator.Restorents.data.entity.Places;
 
 import java.util.List;
 
@@ -10,12 +10,12 @@ public class DatabaseInitializer
 {
     private static final String TAG = DatabaseInitializer.class.getName();
 
-    public static long insertRestaurant(final AppDatabase db, final Restaurant restaurant)
+    public static long insertRestaurant(final AppDatabase db, final Places places)
     {
-        return db.restaurantDao().insert(restaurant);
+        return db.restaurantDao().insert(places);
     }
 
-    public static List<Restaurant> getAllRestaurant(final AppDatabase db)
+    public static List<Places> getAllRestaurant(final AppDatabase db)
     {
         return db.restaurantDao().getAll();
     }
@@ -30,8 +30,8 @@ public class DatabaseInitializer
         return db.restaurantDao().count(place_id);
     }
 
-    public static void delete(final AppDatabase db, final Restaurant restaurant)
+    public static void delete(final AppDatabase db, final Places places)
     {
-        db.restaurantDao().delete(restaurant);
+        db.restaurantDao().delete(places);
     }
 }

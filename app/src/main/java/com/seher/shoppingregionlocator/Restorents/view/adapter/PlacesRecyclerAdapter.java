@@ -14,24 +14,24 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.seher.shoppingregionlocator.Restorents.data.api.URLBuilder;
-import com.seher.shoppingregionlocator.Restorents.data.entity.Restaurant;
+import com.seher.shoppingregionlocator.Restorents.data.entity.Places;
 import com.seher.shoppingregionlocator.Restorents.ui.ImageLoader;
 
 import java.util.List;
 import com.seher.shoppingregionlocator.R;
 
 
-public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRecyclerAdapter.ViewHolder>
+public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAdapter.ViewHolder>
 {
     private OnItemClickListener clickListener;
     private Context context;
-    private List<Restaurant> restaurantList;
+    private List<Places> placesList;
 
-    public RestaurantRecyclerAdapter(Context context, List<Restaurant> restaurantList)
+    public PlacesRecyclerAdapter(Context context, List<Places> placesList)
     {
         super();
 
-        this.restaurantList = restaurantList;
+        this.placesList = placesList;
         this.context = context;
     }
 
@@ -39,7 +39,7 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
     {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recyclerview_layout, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_recyclerview_layout, viewGroup, false);
         return new ViewHolder(v);
     }
 
@@ -47,7 +47,7 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i)
     {
-        viewHolder.bindData(restaurantList.get(i));
+        viewHolder.bindData(placesList.get(i));
         viewHolder.ib_favourite.setTag(i);
     }
 
@@ -55,7 +55,7 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
     @Override
     public int getItemCount()
     {
-        return restaurantList.size();
+        return placesList.size();
     }
 
 
@@ -109,18 +109,18 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
         }
 
 
-        private void bindData(Restaurant restaurant)
+        private void bindData(Places places)
         {
-            tv_name.setText(restaurant.getName());
-            tv_location.setText(restaurant.getAddress());
-            tv_rating.setText(String.valueOf(restaurant.getRating()));
+            tv_name.setText(places.getName());
+            tv_location.setText(places.getAddress());
+            tv_rating.setText(String.valueOf(places.getRating()));
 
-            if(restaurant.getRating() >= 3)
+            if(places.getRating() >= 3)
             {
                 tv_rating.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_rating_background_green));
             }
 
-            else if(restaurant.getRating() >= 2)
+            else if(places.getRating() >= 2)
             {
                 tv_rating.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_rating_background_yellow));
             }
@@ -130,7 +130,7 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
                 tv_rating.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_rating_background_red));
             }
 
-            if(restaurant.isOpen_now())
+            if(places.isOpen_now())
             {
                 tv_opening_hour.setTextColor(ContextCompat.getColor(context, R.color.green));
                 tv_opening_hour.setText("Open");
@@ -142,7 +142,7 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
                 tv_opening_hour.setText("Closed");
             }
 
-            if(restaurant.isIs_favourite())
+            if(places.isIs_favourite())
             {
                 ib_favourite.setImageResource(R.drawable.ic_favorite_red);
             }
@@ -152,7 +152,7 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
                 ib_favourite.setImageResource(R.drawable.ic_favorite_grey);
             }
 
-            loadThumbnail(URLBuilder.thumbURL(restaurant.getPhoto_reference()));
+            loadThumbnail(URLBuilder.thumbURL(places.getPhoto_reference()));
         }
 
 

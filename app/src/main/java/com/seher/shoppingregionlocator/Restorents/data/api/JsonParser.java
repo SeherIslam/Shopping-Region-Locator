@@ -1,7 +1,7 @@
 package com.seher.shoppingregionlocator.Restorents.data.api;
 
 
-import com.seher.shoppingregionlocator.Restorents.data.entity.Restaurant;
+import com.seher.shoppingregionlocator.Restorents.data.entity.Places;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,9 +12,9 @@ import java.util.Collections;
 public class JsonParser
 {
 
-    public static ArrayList<Restaurant> parseJson(String result)
+    public static ArrayList<Places> parseJson(String result)
     {
-        ArrayList<Restaurant> restaurantList = new ArrayList<>();
+        ArrayList<Places> placesList = new ArrayList<>();
 
         try
         {
@@ -25,52 +25,52 @@ public class JsonParser
             {
                 JSONObject jsonOBJ = jsonArray.getJSONObject(i);
 
-                Restaurant restaurant = new Restaurant();
+                Places places = new Places();
 
-                restaurant.setPlace_id(jsonOBJ.get("place_id").toString());
+                places.setPlace_id(jsonOBJ.get("place_id").toString());
 
                 if(jsonOBJ.has("name"))
                 {
-                    restaurant.setName(jsonOBJ.get("name").toString());
+                    places.setName(jsonOBJ.get("name").toString());
                 }
 
                 if(jsonOBJ.has("rating"))
                 {
-                    restaurant.setRating(Float.parseFloat(jsonOBJ.get("rating").toString()));
+                    places.setRating(Float.parseFloat(jsonOBJ.get("rating").toString()));
                 }
 
                 else
                 {
-                    restaurant.setRating(Float.parseFloat("0"));
+                    places.setRating(Float.parseFloat("0"));
                 }
 
                 if(jsonOBJ.has("price_level"))
                 {
-                    restaurant.setPrice_level(Integer.parseInt((jsonOBJ.get("price_level").toString())));
+                    places.setPrice_level(Integer.parseInt((jsonOBJ.get("price_level").toString())));
                 }
 
                 if(jsonOBJ.has("vicinity"))
                 {
-                    restaurant.setAddress(jsonOBJ.get("vicinity").toString());
+                    places.setAddress(jsonOBJ.get("vicinity").toString());
                 }
 
                 if(jsonOBJ.has("geometry"))
                 {
-                    restaurant.setLat(Double.parseDouble(jsonOBJ.getJSONObject("geometry").getJSONObject("location").get("lat").toString()));
-                    restaurant.setLng(Double.parseDouble(jsonOBJ.getJSONObject("geometry").getJSONObject("location").get("lng").toString()));
+                    places.setLat(Double.parseDouble(jsonOBJ.getJSONObject("geometry").getJSONObject("location").get("lat").toString()));
+                    places.setLng(Double.parseDouble(jsonOBJ.getJSONObject("geometry").getJSONObject("location").get("lng").toString()));
                 }
 
                 if(jsonOBJ.has("photos"))
                 {
-                    restaurant.setPhoto_reference(jsonOBJ.getJSONArray("photos").getJSONObject(0).getString("photo_reference").toString());
+                    places.setPhoto_reference(jsonOBJ.getJSONArray("photos").getJSONObject(0).getString("photo_reference").toString());
                 }
 
                 if(jsonOBJ.has("opening_hours"))
                 {
-                    restaurant.setOpen_now(jsonOBJ.getJSONObject("opening_hours").getBoolean("open_now"));
+                    places.setOpen_now(jsonOBJ.getJSONObject("opening_hours").getBoolean("open_now"));
                 }
 
-                restaurantList.add(restaurant);
+                placesList.add(places);
             }
         }
         catch (Exception ex)
@@ -78,8 +78,8 @@ public class JsonParser
             ex.printStackTrace();
         }
 
-        Collections.sort(restaurantList);
+        Collections.sort(placesList);
 
-        return restaurantList;
+        return placesList;
     }
 }

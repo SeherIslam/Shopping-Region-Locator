@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 
-@Entity(tableName = "restaurant")
-public class Restaurant implements Serializable, Comparable<Restaurant>
+@Entity(tableName = "places")
+public class Places implements Serializable, Comparable<Places>
 {
     @PrimaryKey
     @NonNull
@@ -114,9 +114,9 @@ public class Restaurant implements Serializable, Comparable<Restaurant>
     }
 
     @Override
-    public int compareTo(@NonNull Restaurant restaurant)
+    public int compareTo(@NonNull Places places)
     {
-        return restaurant.getRating().compareTo(this.getRating());
+        return places.getRating().compareTo(this.getRating());
     }
 
     public String getPlace_id() {

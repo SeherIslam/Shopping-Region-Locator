@@ -8,10 +8,10 @@ import androidx.room.RoomDatabase;
 
 import com.seher.shoppingregionlocator.Restorents.app.Global;
 import com.seher.shoppingregionlocator.Restorents.data.dao.RestaurantDao;
-import com.seher.shoppingregionlocator.Restorents.data.entity.Restaurant;
+import com.seher.shoppingregionlocator.Restorents.data.entity.Places;
 
 
-@Database(entities = {Restaurant.class}, version = 1)
+@Database(entities = {Places.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase
 {
 

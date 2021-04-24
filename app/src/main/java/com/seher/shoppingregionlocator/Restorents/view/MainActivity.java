@@ -35,7 +35,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -44,9 +43,9 @@ import com.seher.shoppingregionlocator.Restorents.data.api.HttpClient;
 import com.seher.shoppingregionlocator.Restorents.data.api.JsonParser;
 import com.seher.shoppingregionlocator.Restorents.data.api.URLBuilder;
 import com.seher.shoppingregionlocator.Restorents.data.db.AppDatabase;
-import com.seher.shoppingregionlocator.Restorents.data.entity.Restaurant;
+import com.seher.shoppingregionlocator.Restorents.data.entity.Places;
 import com.seher.shoppingregionlocator.Restorents.network.InternetConnectionDetector;
-import com.seher.shoppingregionlocator.Restorents.view.adapter.RestaurantRecyclerAdapter;
+import com.seher.shoppingregionlocator.Restorents.view.adapter.PlacesRecyclerAdapter;
 
 import org.json.JSONObject;
 
@@ -72,12 +71,12 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
     private ProgressBar pbLoading;
     private TextView tvRadius;
 
-    private RestaurantRecyclerAdapter mAdapter;
+    private PlacesRecyclerAdapter mAdapter;
 
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
 
-    private List<Restaurant> restaurantList = new ArrayList<>();
+    private List<Places> placesList = new ArrayList<>();
 
 
     @Override
@@ -99,9 +98,9 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
          */
         if(getIntent().getBooleanExtra("IS_OFFLINE", false))
         {
-            restaurantList.addAll(DatabaseInitializer.getAllRestaurant(AppDatabase.getAppDatabase(MainActivity.this)));
+            placesList.addAll(DatabaseInitializer.getAllRestaurant(AppDatabase.getAppDatabase(MainActivity.this)));
 
-            if(restaurantList.size() == 0)
+            if(placesList.size() == 0)
             {
                 Toast.makeText(getApplicationContext(), "No Favourite. Find other places", Toast.LENGTH_LONG).show();
             }
@@ -164,15 +163,15 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new RestaurantRecyclerAdapter(this, restaurantList);
+        mAdapter = new PlacesRecyclerAdapter(this, placesList);
         mRecyclerView.setAdapter(mAdapter);
 
-        mAdapter.SetOnItemClickListener(new RestaurantRecyclerAdapter.OnItemClickListener() {
+        mAdapter.SetOnItemClickListener(new PlacesRecyclerAdapter.OnItemClickListener() {
 
             @Override
             public void onItemClick(View view, int i)
             {
-                Restaurant restaurant = restaurantList.get(i);
+                Places places = placesList.get(i);
 
                 /**
                  * Redirect to Device Google Map on Click
@@ -180,8 +179,8 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
                 try
                 {
 
-                    System.out.println("Location coordinates"+restaurant.getLat() + "," + restaurant.getLng());
-                    Uri gmmIntentUri = Uri.parse("google.navigation:q=" + restaurant.getLat() + "," + restaurant.getLng() + "&mode=w");
+                    System.out.println("Location coordinates"+ places.getLat() + "," + places.getLng());
+                    Uri gmmIntentUri = Uri.parse("google.navigation:q=" + places.getLat() + "," + places.getLng() + "&mode=w");
                     Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                     mapIntent.setPackage("com.google.android.apps.maps");
 
@@ -200,16 +199,16 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
             @Override
             public void onFavoriteClick(View view, int position) {
 
-                Restaurant restaurant = restaurantList.get(position);
+                Places places = placesList.get(position);
 
-                if(DatabaseInitializer.count(AppDatabase.getAppDatabase(MainActivity.this), restaurant.getPlace_id()) <= 0)
+                if(DatabaseInitializer.count(AppDatabase.getAppDatabase(MainActivity.this), places.getPlace_id()) <= 0)
                 {
                     /**
                      * If restaurant not added to favourite then add
                      */
-                    restaurant.setIs_favourite(true);
-                    DatabaseInitializer.insertRestaurant(AppDatabase.getAppDatabase(MainActivity.this), restaurant);
-                    restaurantList.get(position).setIs_favourite(true);
+                    places.setIs_favourite(true);
+                    DatabaseInitializer.insertRestaurant(AppDatabase.getAppDatabase(MainActivity.this), places);
+                    placesList.get(position).setIs_favourite(true);
 
                     Toast.makeText(getApplicationContext(), "Added Favorite", Toast.LENGTH_SHORT).show();
                 }
@@ -219,8 +218,8 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
                     /**
                      * If restaurant already added to favourite then remove
                      */
-                    DatabaseInitializer.delete(AppDatabase.getAppDatabase(MainActivity.this), restaurant);
-                    restaurantList.get(position).setIs_favourite(false);
+                    DatabaseInitializer.delete(AppDatabase.getAppDatabase(MainActivity.this), places);
+                    placesList.get(position).setIs_favourite(false);
 
                     Toast.makeText(getApplicationContext(), "Removed Favorite", Toast.LENGTH_SHORT).show();
                 }
@@ -322,8 +321,8 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
-                    .addApi(Places.GEO_DATA_API)
-                    .addApi(Places.PLACE_DETECTION_API)
+                    .addApi(com.google.android.gms.location.places.Places.GEO_DATA_API)
+                    .addApi(com.google.android.gms.location.places.Places.PLACE_DETECTION_API)
                     .build();
         }
 
@@ -479,12 +478,12 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
                 /**
                  * Parse response JSON and add all restaurant in a list
                  */
-                List<Restaurant> restaurants = JsonParser.parseJson(response);
+                List<Places> places = JsonParser.parseJson(response);
 
-                if(restaurants.size() != 0)
+                if(places.size() != 0)
                 {
-                    restaurantList.clear();
-                    restaurantList.addAll(restaurants);
+                    placesList.clear();
+                    placesList.addAll(places);
                 }
 
                 else
@@ -497,11 +496,11 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
                     /**
                      * Check if restaurant added to favourite
                      */
-                    for(int pos=0; pos<restaurantList.size(); pos++)
+                    for(int pos = 0; pos< placesList.size(); pos++)
                     {
-                        if(DatabaseInitializer.count(AppDatabase.getAppDatabase(MainActivity.this), restaurantList.get(pos).getPlace_id()) > 0)
+                        if(DatabaseInitializer.count(AppDatabase.getAppDatabase(MainActivity.this), placesList.get(pos).getPlace_id()) > 0)
                         {
-                            restaurantList.get(pos).setIs_favourite(true);
+                            placesList.get(pos).setIs_favourite(true);
                         }
                     }
                 }
