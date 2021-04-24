@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    tools:context=".navigation.header"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingBottom="9dp"
+    android:background="#696969">
+
+
+    <TextView
+        android:id="@+id/header_d"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Everything your want!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/navigation_header_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Admin"
+        android:textColor="#000"
+
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/header_d"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_header_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardCornerRadius="60dp"
+        android:layout_margin="10dp"
+        app:cardElevation="5dp"
+        >
+
+        <ImageView
+            android:id="@+id/header_image"
+            android:layout_width="121dp"
+            android:layout_height="121dp"
+            android:src="@drawable/profile"
+            android:transitionName="s_logo"
+            android:background="@color/selection"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.cardview.widget.CardView>
+
+<!--        <ImageView-->
+<!--            android:id="@+id/header_image"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/profile"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/navigation_header_username"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

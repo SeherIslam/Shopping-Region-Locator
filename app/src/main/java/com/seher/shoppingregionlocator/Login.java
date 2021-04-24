@@ -186,7 +186,7 @@ public class Login extends AppCompatActivity {
 
                             password.setErrorEnabled(false);
 
-                            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+                            Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
 //                            intent.putExtra("userType","Voter");
 //                            intent.putExtra("user",userEnteredUsername);
 
