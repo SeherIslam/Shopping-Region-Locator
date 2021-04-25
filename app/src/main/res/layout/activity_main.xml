@@ -44,6 +44,7 @@
         android:visibility="gone"
         android:layout_gravity="center" />
 
-    <include layout="@layout/seekbar_layout_range" />
+    <include layout="@layout/seekbar_layout_range"
+        android:id="@+id/seekbarLayout"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

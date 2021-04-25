@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_layout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/duskYellow">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
     <ImageView
-        android:id="@+id/iv_logo"
-        android:layout_width="match_parent"
+        android:id="@+id/splashLogo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:contentDescription="@null"
-        android:layout_margin="60dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/restaurant"/>
+        android:layout_marginTop="10dp"
+        android:src="@drawable/logo"
+        android:transitionName="s_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shopping"
+        app:layout_constraintVertical_bias="0.060000002" />
 
-    <Button
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/btnDone"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/shopping"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:minHeight="40dp"
-        android:textSize="14sp"
-        android:textColor="@color/myTextPrimaryColor"
-        android:textAllCaps="false"
-        android:onClick="onClick"
-        android:layout_gravity="center"
-        android:layout_margin="50dp"
-        android:layout_alignParentBottom="true"
-        android:foreground="?attr/selectableItemBackground"
-        android:background="@drawable/round_ui_button_style"
-        android:text="Go Offline" />
+        android:layout_marginTop="225dp"
+        android:text="Shopping Region Locator"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="30sp"
+        android:transitionName="s_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

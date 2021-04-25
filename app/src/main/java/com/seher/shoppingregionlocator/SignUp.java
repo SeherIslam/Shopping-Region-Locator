@@ -44,7 +44,7 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         login=findViewById(R.id.signup_login_button);
-        String text="Already have an account? <font color=#48C9B0>Login</font>";
+        String text="Already have an account? <font color=#ECB028>Login</font>";
         login.setText(Html.fromHtml(text));
 
         fullname=findViewById(R.id.full_name);

@@ -22,17 +22,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.seher.shoppingregionlocator.Map.view.MainActivity;
 import com.seher.shoppingregionlocator.helperClasses.User;
 import com.seher.shoppingregionlocator.navigation.HomePageFragment;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
 
     private HomePageFragment homePageFragment;
-   // private Profile prof;
-//    private emergency_contacts emergency_contact;
-//    private surveillance Surveillance;
-//
-//    private floors floor;
+    private Profile prof;
+
 //    private rooms room;
 //    private devices device;
    // private AppBarConfiguration mAppBarConfiguration;
@@ -64,12 +64,9 @@ public class HomeActivity extends AppCompatActivity implements  NavigationView.O
         toggle.syncState();
 
         homePageFragment =new HomePageFragment();
-//        emergency_contact=new emergency_contacts();
-//        floor=new floors();
 //        room=new rooms();
-      //  prof=new Profile();
+          prof=new Profile();
 //        device=new devices();
-//        Surveillance=new surveillance();
 
 //        mAppBarConfiguration = new AppBarConfiguration.Builder(
 //                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
@@ -145,6 +142,25 @@ public class HomeActivity extends AppCompatActivity implements  NavigationView.O
                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homePageFragment).addToBackStack("home").commit();
                 break;
             }
+            case R.id.offline: {
+                Intent i = new Intent(this, MainActivity.class);
+                ArrayList<String> selectedStrings=new ArrayList<>();
+                i.putStringArrayListExtra("SELECTED_PLACES", selectedStrings);
+                i.putExtra("IS_OFFLINE", true);
+                startActivity(i);
+
+                //  getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homePageFragment).addToBackStack("home").commit();
+                break;
+            }
+            case R.id.favouites: {
+                Intent i = new Intent(this, MainActivity.class);
+                ArrayList<String> selectedStrings=new ArrayList<>();
+                i.putExtra("fav", true);
+                startActivity(i);
+
+                //  getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homePageFragment).addToBackStack("home").commit();
+                break;
+            }
 
 //            case R.id.nav_surveillance: {
 //
@@ -168,20 +184,20 @@ public class HomeActivity extends AppCompatActivity implements  NavigationView.O
 //                room.setArguments(bundle);
 //                break;
 //            }
-//            case R.id.editProfile: {
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, prof).addToBackStack("prof").commit();
-//                prof.setArguments(bundle);
-//                break;
-//            }
+            case R.id.profile: {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, prof).addToBackStack("prof").commit();
+                prof.setArguments(bundle);
+                break;
+            }
 //
-//            case R.id.logout: {
-//                drawerLayout.closeDrawer(GravityCompat.START);
-//                Intent intent=new Intent(getApplicationContext(), Login.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                startActivity(intent);
-//
-//                break;
-//            }
+            case R.id.logout: {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Intent intent=new Intent(getApplicationContext(), Login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+                break;
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
@@ -218,7 +234,7 @@ public class HomeActivity extends AppCompatActivity implements  NavigationView.O
     @Override
     public void onDestroy() {
         super.onDestroy();
-        databaseReference.removeEventListener(eventListener);
+//        databaseReference.removeEventListener(eventListener);
     }
 
 

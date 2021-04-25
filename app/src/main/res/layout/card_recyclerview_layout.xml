@@ -49,13 +49,28 @@
             android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/tvLocation"
+            android:id="@+id/placeType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:textColor="@color/myTextSecondaryColor"
             android:layout_toEndOf="@id/thumbnail"
             android:layout_below="@+id/tvName"
+            android:text="XXXXXXXXXXXXXXX"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:textColor="@color/myTextSecondaryColor"
+            android:layout_toEndOf="@id/thumbnail"
+            android:layout_below="@+id/placeType"
             android:text="XXXXXXXXXXX"
             android:maxLines="2"
             android:ellipsize="end"

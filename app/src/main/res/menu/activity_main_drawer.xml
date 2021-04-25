@@ -9,16 +9,20 @@
             android:icon="@drawable/home"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_setting"
+            android:id="@+id/offline"
             android:icon="@drawable/settings"
-            android:title="@string/menu_settings" />
+            android:title="Offline Mode" />
         <item
-            android:id="@+id/nav_share"
+            android:id="@+id/favouites"
             android:icon="@drawable/share"
-            android:title="@string/menu_share" />
+            android:title="Favourites" />
         <item
-            android:id="@+id/nav_rateus"
+            android:id="@+id/profile"
             android:icon="@drawable/rate_us"
-            android:title="@string/menu_rate" />
+            android:title="Profile" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/rate_us"
+            android:title="Logout" />
     </group>
 </menu>

@@ -14,10 +14,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
-import com.seher.shoppingregionlocator.Agapters.HomeAdapter;
+import com.seher.shoppingregionlocator.Adapters.HomeAdapter;
 import com.seher.shoppingregionlocator.GridItemView;
-import com.seher.shoppingregionlocator.Maps.MapsActivity;
 import com.seher.shoppingregionlocator.R;
+import com.seher.shoppingregionlocator.Map.view.MainActivity;
+
 import java.util.ArrayList;
 
 public class HomePageFragment extends Fragment {
@@ -59,7 +60,7 @@ public class HomePageFragment extends Fragment {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MapsActivity.class);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putStringArrayListExtra("SELECTED_PLACES", selectedStrings);
                 startActivity(intent);
             //    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapsActivity()).addToBackStack("MapsFragment").commit();
@@ -76,12 +77,17 @@ public class HomePageFragment extends Fragment {
         LoadData();
     }
     public void LoadData(){
-        items.add("Electronics");
-        items.add("Mobile Phones");
-        items.add("ATM");
+        items.add("Electronics Store");
+        items.add("Cafe");
         items.add("Food");
-        items.add("Business");
-        items.add("Apparels");
+        items.add("ATM");
+        items.add("Clothing Store");
+        items.add("Jewelry Store");
+        items.add("Shopping Mall");
+        items.add("Department Store");
+
+
+
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

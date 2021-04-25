@@ -8,7 +8,7 @@
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
     android:paddingBottom="9dp"
-    android:background="#696969">
+    android:background="@color/colorPrimary">
 
 
     <TextView
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="Admin"
+        android:text="User"
         android:textColor="#000"
 
         android:textSize="24sp"
@@ -56,15 +56,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.cardview.widget.CardView>
-
-<!--        <ImageView-->
-<!--            android:id="@+id/header_image"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/profile"-->
-<!--            app:layout_constraintBottom_toTopOf="@+id/navigation_header_username"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent" />-->
 
 
 

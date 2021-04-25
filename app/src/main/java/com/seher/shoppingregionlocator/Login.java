@@ -54,7 +54,7 @@ public class Login extends AppCompatActivity {
 
         login_progressBar.setVisibility(View.INVISIBLE);
 
-        String text="New User? <font color=#48C9B0>Sign Up</font>";
+        String text="New User? <font color=#ECB028>Sign Up</font>";
         signup.setText(Html.fromHtml(text));
 
         username.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -154,6 +154,12 @@ public class Login extends AppCompatActivity {
     }
 
     public void loginUser(View view) {
+        Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
+//                            intent.putExtra("userType","Voter");
+//                            intent.putExtra("user",userEnteredUsername);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
         if(!validatePassword() | !validateUsername()){
             Toast.makeText(getApplicationContext(),"Fill both Fields",Toast.LENGTH_LONG).show();
             return;

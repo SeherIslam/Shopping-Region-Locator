@@ -131,7 +131,7 @@
             android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/primaryColor"
+            android:backgroundTint="@color/colorPrimary"
             android:padding="11dp"
             android:text="Login"
             android:textColor="#fff"

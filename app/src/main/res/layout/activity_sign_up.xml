@@ -143,7 +143,7 @@
                 android:layout_marginBottom="5dp"
                 android:onClick="registerUser"
                 android:text="Signup"
-                android:backgroundTint="@color/primaryColor"
+                android:backgroundTint="@color/colorPrimary"
                 android:padding="11dp"
                 android:textColor="#fff"
                 android:transitionName="t_login_button" />
