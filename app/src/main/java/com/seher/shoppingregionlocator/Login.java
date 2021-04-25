@@ -154,12 +154,12 @@ public class Login extends AppCompatActivity {
     }
 
     public void loginUser(View view) {
-        Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
-//                            intent.putExtra("userType","Voter");
-//                            intent.putExtra("user",userEnteredUsername);
-
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+//        Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
+////                            intent.putExtra("userType","Voter");
+////                            intent.putExtra("user",userEnteredUsername);
+//
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        startActivity(intent);
         if(!validatePassword() | !validateUsername()){
             Toast.makeText(getApplicationContext(),"Fill both Fields",Toast.LENGTH_LONG).show();
             return;
@@ -193,8 +193,7 @@ public class Login extends AppCompatActivity {
                             password.setErrorEnabled(false);
 
                             Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
-//                            intent.putExtra("userType","Voter");
-//                            intent.putExtra("user",userEnteredUsername);
+                            intent.putExtra("username",userEnteredUsername);
 
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);

@@ -87,11 +87,9 @@ public class HomeActivity extends AppCompatActivity implements  NavigationView.O
 
 
         username=getIntent().getStringExtra("username");
-        type=getIntent().getStringExtra("type");
-
+        System.out.println("Username "+username);
         bundle=new Bundle();
-        bundle.putString("username","abc");
-        bundle.putString("type",type);
+        bundle.putString("username",username);
 
 
 
@@ -101,33 +99,36 @@ public class HomeActivity extends AppCompatActivity implements  NavigationView.O
 
         navImage=headerView.findViewById(R.id.header_image);
 
-//        databaseReference= FirebaseDatabase.getInstance().getReference("Users").child(type);
-//        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//                    User u= postSnapshot.getValue(User.class);
-//                    navUsername.setText(u.getFullname());
-//
-//                    if(username.equals(u.getFullname())) {
-//                        if(u.getProfileImage()!=null)
-//                        {
-//                           // Toast.makeText(getApplicationContext(),"Image found",Toast.LENGTH_LONG).show();
-////                            Glide.with(getApplicationContext())
-////                                    .load(u.getProfileImage())
-////                                    .centerCrop()
-////                                    .placeholder(R.drawable.profile)
-////                                    .into(navImage);
-//                        }
-//                        break;
-//                    }
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                Toast.makeText(getApplicationContext(),databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        databaseReference= FirebaseDatabase.getInstance().getReference("Users");
+        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    User u= postSnapshot.getValue(User.class);
+                    System.out.println("Email "+u.getEmail());
+                    System.out.println("Email "+username);
+
+                    if(username.equals(u.getEmail())) {
+                        navUsername.setText(u.getFullname());
+
+                        if(u.getProfileImage()!=null)
+                        {
+                            Toast.makeText(getApplicationContext(),"Image found",Toast.LENGTH_LONG).show();
+                            Glide.with(getApplicationContext())
+                                    .load(u.getProfileImage())
+                                    .centerCrop()
+                                    .placeholder(R.drawable.profile)
+                                    .into(navImage);
+                        }
+                        break;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(),databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 //
     }
 
@@ -140,6 +141,8 @@ public class HomeActivity extends AppCompatActivity implements  NavigationView.O
         {
             case R.id.home: {
                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homePageFragment).addToBackStack("home").commit();
+                homePageFragment.setArguments(bundle);
+
                 break;
             }
             case R.id.offline: {
