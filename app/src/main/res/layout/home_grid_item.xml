@@ -20,7 +20,7 @@
                 android:id="@+id/itemName"
                 android:text="ItemName"
                 android:gravity="center"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 />
         </RelativeLayout>

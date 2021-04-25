@@ -10,19 +10,19 @@
             android:title="@string/menu_home" />
         <item
             android:id="@+id/offline"
-            android:icon="@drawable/settings"
+            android:icon="@drawable/ic_baseline_wifi_off_24"
             android:title="Offline Mode" />
         <item
             android:id="@+id/favouites"
-            android:icon="@drawable/share"
+            android:icon="@drawable/ic_baseline_favorite_24"
             android:title="Favourites" />
         <item
             android:id="@+id/profile"
-            android:icon="@drawable/rate_us"
+            android:icon="@drawable/ic_baseline_person_24"
             android:title="Profile" />
         <item
             android:id="@+id/logout"
-            android:icon="@drawable/rate_us"
+            android:icon="@drawable/logout"
             android:title="Logout" />
     </group>
 </menu>

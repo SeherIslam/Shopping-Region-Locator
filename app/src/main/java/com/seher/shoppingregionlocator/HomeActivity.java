@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
 
     private HomePageFragment homePageFragment;
-    private Profile prof;
+    private ProfileFragment prof;
 
 //    private rooms room;
 //    private devices device;
@@ -65,7 +65,7 @@ public class HomeActivity extends AppCompatActivity implements  NavigationView.O
 
         homePageFragment =new HomePageFragment();
 //        room=new rooms();
-          prof=new Profile();
+          prof=new ProfileFragment();
 //        device=new devices();
 
 //        mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -187,6 +187,7 @@ public class HomeActivity extends AppCompatActivity implements  NavigationView.O
             case R.id.profile: {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, prof).addToBackStack("prof").commit();
                 prof.setArguments(bundle);
+
                 break;
             }
 //

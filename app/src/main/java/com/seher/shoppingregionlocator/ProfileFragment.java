@@ -14,6 +14,13 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,12 +31,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,20 +46,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.hbb20.CountryCodePicker;
 import com.seher.shoppingregionlocator.helperClasses.User;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+public class ProfileFragment extends Fragment {
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class Profile extends Fragment {
-
-    public Profile() {
-        // Required empty public constructor
-    }
 
     private ValueEventListener eventListener;
 
@@ -96,11 +91,18 @@ public class Profile extends Fragment {
 
 
 
+    public ProfileFragment() {
+        // Required empty public constructor
+    }
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_profile, container, false);
+
 //        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 //        toolbar.setTitle("Profile");
 
@@ -112,12 +114,11 @@ public class Profile extends Fragment {
         dataUpdateChecking();
 
         final String username=getArguments().getString("username");
-        final String type=getArguments().getString("type");
 
         //Toast.makeText(getContext(),"You will get an otp at "+username,Toast.LENGTH_LONG).show();
 
 
-        databaseReference= FirebaseDatabase.getInstance().getReference("Users").child(type);
+        databaseReference= FirebaseDatabase.getInstance().getReference("Users");
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -295,7 +296,7 @@ public class Profile extends Fragment {
                 {
                     update_Btn_NotClickable();
                 }
-                else if(phone.getEditText().getText().toString().equals(user.getPassword()))
+                else if(phone.getEditText().getText().toString().equals(user.getPhoneNo()))
                 {
                     update_Btn_NotClickable();
                 }
@@ -303,6 +304,7 @@ public class Profile extends Fragment {
                 {
                     update_Btn_Clickable();
                 }
+
                 final String phone_check="^[0-9]{7,13}$";
 
 
@@ -383,14 +385,15 @@ public class Profile extends Fragment {
             if(u.getProfileImage()!=null)
             {
                 Glide.with(getContext())
-                    .load(u.getProfileImage())
-                    .into(imageView);
+                        .load(u.getProfileImage())
+                        .into(imageView);
             }
 
             name.setText(u.getFullname());
-            username.setText(u.getEmail());
+            username.setText("@"+u.getFullname());
             fullname.getEditText().setText(u.getFullname());
             email.getEditText().setText(u.getEmail());
+
 
 
 
@@ -720,6 +723,5 @@ public class Profile extends Fragment {
         super.onDestroy();
         databaseReference.removeEventListener(eventListener);
     }
-
 
 }

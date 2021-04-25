@@ -82,6 +82,9 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
 
+    private int placesCount;
+    private int count;
+
 
 
     private List<Places> placesList = new ArrayList<>();
@@ -94,6 +97,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        placesCount=0;
         main_layout = findViewById(R.id.main_layout);
         mRecyclerView = findViewById(R.id.recycler_view);
         seekbar = findViewById(R.id.seekbar);
@@ -529,16 +533,35 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
                  * Parse response JSON and add all place in a list
                  */
                 List<Places> places = JsonParser.parseJson(response);
+               // Toast.makeText(getApplicationContext(), " All selected places are not found in this radius. Increase radius", Toast.LENGTH_SHORT).show();
+
 
                 if(places.size() != 0)
                 {
                     //placesList.clear();
                     placesList.addAll(places);
+                    placesCount++;
                 }
 
                 else
                 {
-                    Toast.makeText(getApplicationContext(), "No Place Found", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "No Place Found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), " All selected places are not found in this radius. Increase radius", Toast.LENGTH_SHORT).show();
+
+
+                }
+
+
+                if(placesCount==type.size())
+                {
+
+                    Toast.makeText(getApplicationContext(), " All selected places are found in selected radius.", Toast.LENGTH_LONG).show();
+
+                }
+                else if(placesCount==type.size() && count==type.size())
+                {
+                    Toast.makeText(getApplicationContext(), placesCount+" All selected places are not found in this radius. Increase radius", Toast.LENGTH_LONG).show();
+
                 }
 
                 try
@@ -566,9 +589,10 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
                 }
             }
 
-            else
+            else if(status.equals("ZERO_RESULTS"))
             {
-                Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "All selected places are not found in this radius. Increase radius", Toast.LENGTH_LONG).show();
+
             }
         }
 
@@ -616,25 +640,42 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
      */
     private void restApiCall()
     {
+        placesCount=0;
+        placesList.clear();
+        count=0;
         if (new InternetConnectionDetector(MainActivity.this).isConnected())
         {
             if(!(getIntent().getBooleanExtra("fav", false))) {
-
                 for (int i = 0; i < type.size(); i++) {
                     String search = type.get(i);
                     if (search.equals("Electronics Store"))
                         search = "electronics_store";
-                    else if (search.equals("Clothing Store"))
+                    else if (search.equals("Apparels"))
                         search = "clothing_store";
                     else if (search.equals("Jewelry Store"))
                         search = "jewelry_store";
                     else if (search.equals("Department Store"))
                         search = "department_store";
+                    else if (search.equals("Shopping Mall"))
+                        search = "shopping_mall";
 
                     System.out.println("Going to search " + search + "  size: " + type.size());
 
-                    new HttpClient(HTTP_REQUEST_CODE, MainActivity.this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, URLBuilder.placesURL(search, LATITUDE, LONGITUDE, RADIUS));
+                    new HttpClient(HTTP_REQUEST_CODE, MainActivity.this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, URLBuilder.placesURL(search.toLowerCase(), LATITUDE, LONGITUDE, RADIUS));
+                  count++;
                 }
+//
+//                if(placesCount==type.size())
+//                {
+//
+//                    Toast.makeText(getApplicationContext(), placesCount+" All selected places are found in selected radius.", Toast.LENGTH_SHORT).show();
+//
+//                }
+//                else
+//                {
+//                    Toast.makeText(getApplicationContext(), placesCount+" All selected places are not found in this radius. Increase radius", Toast.LENGTH_SHORT).show();
+//
+//                }
             }
         }
 

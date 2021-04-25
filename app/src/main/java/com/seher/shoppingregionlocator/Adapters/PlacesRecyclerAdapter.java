@@ -155,18 +155,62 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
                 ib_favourite.setImageResource(R.drawable.ic_favorite_grey);
             }
 
-            loadThumbnail(URLBuilder.thumbURL(places.getPhoto_reference()));
+            loadThumbnail(URLBuilder.thumbURL(places.getPhoto_reference()),places.getType());
         }
 
 
-        private void loadThumbnail(final String url)
+        private void loadThumbnail(final String url, String type)
         {
             try
             {
-                if(!url.isEmpty())
-                {
-                    ImageLoader.loadThumbnail(context, url, iv_thumbnail, R.drawable.restaurant, 75, 75);
+                if(type.toLowerCase().equals("atm") || type.toLowerCase().equals("finance") || type.toLowerCase().equals("bank")) {
+                    if (!url.isEmpty()) {
+                        ImageLoader.loadThumbnail(context, url, iv_thumbnail, R.drawable.atm, 75, 75);
+                    }
                 }
+                else if(type.toLowerCase().equals("cafe") ) {
+                    if (!url.isEmpty()) {
+                        ImageLoader.loadThumbnail(context, url, iv_thumbnail, R.drawable.cafe, 75, 75);
+                    }
+                }
+                else if(type.toLowerCase().equals("clothing_store") ) {
+                    if (!url.isEmpty()) {
+                        ImageLoader.loadThumbnail(context, url, iv_thumbnail, R.drawable.cloths, 75, 75);
+                    }
+                }
+                else if(type.toLowerCase().equals("electronics_store") ) {
+                    if (!url.isEmpty()) {
+                        ImageLoader.loadThumbnail(context, url, iv_thumbnail, R.drawable.electronics, 75, 75);
+                    }
+                }
+                else if(type.toLowerCase().equals("food") ) {
+                    if (!url.isEmpty()) {
+                        ImageLoader.loadThumbnail(context, url, iv_thumbnail, R.drawable.food, 75, 75);
+                    }
+                }
+                else if(type.toLowerCase().equals("jewelry_store") ) {
+                    if (!url.isEmpty()) {
+                        ImageLoader.loadThumbnail(context, url, iv_thumbnail, R.drawable.jewellery, 75, 75);
+                    }
+                }
+                else if(type.toLowerCase().equals("shopping_mall") ) {
+                    if (!url.isEmpty()) {
+                        ImageLoader.loadThumbnail(context, url, iv_thumbnail, R.drawable.shopping, 75, 75);
+                    }
+                }
+
+                else if(type.toLowerCase().equals("department_store") ) {
+                    if (!url.isEmpty()) {
+                        ImageLoader.loadThumbnail(context, url, iv_thumbnail, R.drawable.store, 75, 75);
+                    }
+                }
+                else  {
+                    if (!url.isEmpty()) {
+                        ImageLoader.loadThumbnail(context, url, iv_thumbnail, R.drawable.things, 75, 75);
+                    }
+                }
+
+
             }
 
             catch (Exception e)

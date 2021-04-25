@@ -37,6 +37,7 @@ public class HomePageFragment extends Fragment {
         View mainView = inflater.inflate(R.layout.home_fragment, container, false);
         itemList = (GridView) mainView.findViewById(R.id.itemList);
         nextBtn = (Button) mainView.findViewById(R.id.nextBtn);
+        //getResources().getColor(R.color.primaryColor)
         //Intialize
         intiliaze();
         final HomeAdapter adapter = new HomeAdapter(getActivity(), items);
@@ -81,7 +82,7 @@ public class HomePageFragment extends Fragment {
         items.add("Cafe");
         items.add("Food");
         items.add("ATM");
-        items.add("Clothing Store");
+        items.add("Apparels");
         items.add("Jewelry Store");
         items.add("Shopping Mall");
         items.add("Department Store");
