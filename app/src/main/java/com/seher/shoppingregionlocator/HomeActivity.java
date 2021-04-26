@@ -113,7 +113,6 @@ public class HomeActivity extends AppCompatActivity implements  NavigationView.O
 
                         if(u.getProfileImage()!=null)
                         {
-                            Toast.makeText(getApplicationContext(),"Image found",Toast.LENGTH_LONG).show();
                             Glide.with(getApplicationContext())
                                     .load(u.getProfileImage())
                                     .centerCrop()

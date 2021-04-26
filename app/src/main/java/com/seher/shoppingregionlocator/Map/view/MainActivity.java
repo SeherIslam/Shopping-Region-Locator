@@ -243,15 +243,20 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.Connec
                 try
                 {
 
-                    System.out.println("Location coordinates"+ places.getLat() + "," + places.getLng());
-                    Uri gmmIntentUri = Uri.parse("google.navigation:q=" + places.getLat() + "," + places.getLng() + "&mode=d");
-                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                    mapIntent.setPackage("com.google.android.apps.maps");
+//                    System.out.println("Location coordinates"+ places.getLat() + "," + places.getLng());
+//                    Uri gmmIntentUri = Uri.parse("google.navigation:q=" + places.getLat() + "," + places.getLng() + "&mode=d");
+//                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+//                    mapIntent.setPackage("com.google.android.apps.maps");
+//
+//                    //if (mapIntent.resolveActivity(getPackageManager()) != null)
+//                    {
+//                        startActivity(mapIntent);
+//                    }
+                            Intent intent=new Intent(getApplicationContext(), PlaceDetailsScreen.class);
+                            intent.putExtra("placeDetails",places);
+//                            intent.putExtra("user",userEnteredUsername);
 
-                    //if (mapIntent.resolveActivity(getPackageManager()) != null)
-                    {
-                        startActivity(mapIntent);
-                    }
+                    startActivity(intent);
                 }
 
                 catch (Exception e)
